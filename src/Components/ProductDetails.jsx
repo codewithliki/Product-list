@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../Context/CartContext";
+
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -7,6 +9,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     if (!id) return;
@@ -42,6 +45,13 @@ export default function ProductDetails() {
           <p style={{ color: "#666", marginTop: 12 }}>{product.description}</p>
           <p style={{ marginTop: 12, color: "#333" }}><strong>Category:</strong> {product.category}</p>
         </div>
+        <button
+          onClick={() => addToCart(product)}
+          className="btn"
+        >
+          Add to Cart
+        </button>
+
       </div>
     </div>
   );
